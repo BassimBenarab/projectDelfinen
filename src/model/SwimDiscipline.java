@@ -1,4 +1,8 @@
 package model;
 
-public class SwimDiscipline {
+public enum SwimDiscipline {
+    FREESTYLE,
+    BACKSTROKE,
+    BREASTSTROKE,
+    BUTTERFLY,
 }

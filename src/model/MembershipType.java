@@ -1,4 +1,7 @@
 package model;
 
-public class MembershipType {
+public enum MembershipType {
+    JUNIOR,
+    SENIOR,
+    PENSIONER
 }
