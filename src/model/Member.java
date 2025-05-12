@@ -61,4 +61,7 @@ public class Member {
         return "Name: " + name + " Birthday " + birthDate + " Membership Type: " + membershipType + " Active membership = " + activeMember;
 
     }
-}
+
+
+    }
+

@@ -2,7 +2,7 @@ package ui;
 
 import model.Member;
 import storage.MemberRepository;
-
+import utils.PaymentUtils;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,34 +10,59 @@ import java.util.Scanner;
 
 public class MainMenu {
     private Scanner scanner = new Scanner(System.in);
-    private ArrayList<Member> members = new ArrayList<>();
-
-    public void addMember (String name, LocalDate birthDate,boolean isActive) {
-        members.add(new Member(name, birthDate, isActive));
-    }
-    public ArrayList<Member> getAllMembers () {
-        System.out.println(members);
-        return members;
-    }
+    //private ArrayList<Member> members = new ArrayList<>();
+    private MemberRepository memberRepo = new MemberRepository();
+    private PaymentUtils payments = new PaymentUtils();
 
         public void runProgram() {
         boolean running = true;
         while (running) {
-            System.out.println("velkommen til klub 'Delfin' ");
-            System.out.println("1. opret nyt medlem");
-            System.out.println("2. se alle medlemmer");
+            System.out.println("\n--Hovedmenu--");
+            System.out.println("1. Medlemmer");
+            System.out.println("2. Betalinger");
 
                 if (scanner.hasNextInt()) {
                     int choice = scanner.nextInt();
                     scanner.nextLine();
 
                     switch (choice) {
-                       case 1 -> addMember("", LocalDate.of(2004,10,21), true);
-                       case 2 -> getAllMembers();
+                        case 1 -> {
+                            boolean back = false;
+                            while (!back) {
+                                System.out.println("\n--Medlemmer --");
+                                System.out.println("1. Tilføj medlem");
+                                System.out.println("2. Se alle medlemmer");
+                                System.out.println("3. Tilbage");
+
+
+                                int subChoice = scanner.nextInt();
+                                scanner.nextLine();
+
+                                switch (subChoice) {
+                                    case 1 -> memberRepo.addMember();
+                                    case 2 -> memberRepo.getAllMembers();
+                                    case 3 -> back = true;
+                                    default -> System.out.println("Ugyldigt valg");
+                                }
+                                
+                            }
+                        }
+                        case 2 -> {
+                            boolean back2 = false;
+                            while (!back2) {
+                                System.out.println("\n--Betalinger --");
+                                System.out.println("1. Samlet kontingent");
+                                System.out.println("2. Medlemmer i restance");
+                                System.out.println("3. Tilbage");
+                            }
+                        }
+
+
+                        default -> System.out.println("Ugyldigt valg");
+                        }
                     }
+
+
                 }
             }
         }
-    //public void addMember (String name, LocalDate birthDate,boolean isActive){
-            //members.add(new Member(name, birthDate, isActive));
-    }
