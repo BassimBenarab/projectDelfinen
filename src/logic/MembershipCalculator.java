@@ -2,10 +2,12 @@ package logic;
 
 import model.Member;
 import model.MembershipType;
+import utils.DateUtils;
 
 public class MembershipCalculator {
-    public double calculateMembershipFee(Member member, int age) {
+    public double calculateMembershipFee(Member member) {
 
+        int age = DateUtils.calculateAge(member.getBirthDate());
         if(!member.isActiveMember()) {
             return 500.00;
         } else if (age <=17 ) {

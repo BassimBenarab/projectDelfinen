@@ -9,6 +9,7 @@ import java.time.Period;
 import static model.MembershipType.JUNIOR;
 
 public class PaymentUtils {
+    private Member member;
     public static MembershipType determineMembershipType(int age) {
         if (age < 18) {
             return JUNIOR;
@@ -19,7 +20,7 @@ public class PaymentUtils {
         }
     }
 
-    public static double getMembershipFee(Member member) {
+    /*public static double getMembershipFee(Member member) {
         int age = DateUtils.calculateAge(member.getBirthDate());
         MembershipType type = determineMembershipType(age);
 
@@ -35,4 +36,6 @@ public class PaymentUtils {
         }
 
     }
+
+     */
 }

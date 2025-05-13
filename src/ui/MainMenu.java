@@ -1,7 +1,9 @@
 package ui;
 
+import logic.MembershipCalculator;
 import model.Member;
 import storage.MemberRepository;
+import storage.PaymentRepository;
 import utils.PaymentUtils;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,6 +15,7 @@ public class MainMenu {
     //private ArrayList<Member> members = new ArrayList<>();
     private MemberRepository memberRepo = new MemberRepository();
     private PaymentUtils payments = new PaymentUtils();
+    private PaymentRepository totalBalance = new PaymentRepository(memberRepo);
 
         public void runProgram() {
         boolean running = true;
@@ -40,7 +43,7 @@ public class MainMenu {
 
                                 switch (subChoice) {
                                     case 1 -> memberRepo.addMember();
-                                    case 2 -> memberRepo.getAllMembers();
+                                    case 2 -> memberRepo.printAllMembers();
                                     case 3 -> back = true;
                                     default -> System.out.println("Ugyldigt valg");
                                 }
@@ -54,6 +57,17 @@ public class MainMenu {
                                 System.out.println("1. Samlet kontingent");
                                 System.out.println("2. Medlemmer i restance");
                                 System.out.println("3. Tilbage");
+
+                                int paymentChoice = scanner.nextInt();
+                                scanner.nextLine();
+
+                                switch (paymentChoice) {
+                                    case 1 -> totalBalance.calculatePayments();
+                                    //case 2 ->
+                                    case 3 -> back2 = true;
+                                    default -> System.out.println("ugyldigt valg");
+
+                                }
                             }
                         }
 

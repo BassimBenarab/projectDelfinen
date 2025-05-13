@@ -4,13 +4,15 @@ import model.Member;
 
 import java.lang.reflect.Array;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
 public class MemberRepository {
-    List<Member> members = new ArrayList<>();
+    private List<Member> members = new ArrayList<>();
 
     public void addMember() {
         Scanner input = new Scanner(System.in);
@@ -21,15 +23,28 @@ public class MemberRepository {
             System.out.println("Navn: ");
             String name = input.nextLine();
 
-            System.out.println("Fødselsår: ");
-            int year = input.nextInt();
-            System.out.println("Måned: ");
-            int month = input.nextInt();
-            System.out.println("Dato: ");
-            int day = input.nextInt();
-            input.nextLine();
+            LocalDate birthDate = null;
+            while (birthDate == null) {
+                try {
+                    System.out.println("Fødselsår: ");
+                    int year = input.nextInt();
+                    System.out.println("Måned: ");
+                    int month = input.nextInt();
+                    System.out.println("Dato: ");
+                    int day = input.nextInt();
+                    input.nextLine();
 
-            LocalDate birthDate = LocalDate.of(year, month, day);
+                    birthDate = LocalDate.of(year, month, day);
+
+                    if (birthDate.isAfter(LocalDate.now())) {
+                        System.out.println("født i fremtiden ikke muligt endnu");
+                        birthDate = null;
+                    }
+                } catch (Exception e) {
+                    System.out.println("ugyldig dato, prøv venligst igen");
+                    input.nextLine();
+                }
+            }
 
             System.out.println("Er medlem aktiv - Ja/Nej?: ");
             boolean isActive;
@@ -65,7 +80,11 @@ public class MemberRepository {
         }
     }
 
-    public void getAllMembers() {
+    public List<Member> getAllMembers() {
+        return members;
+    }
+
+    public void printAllMembers() {
         System.out.println("--------------------------");
         for (Member m : members) {
             System.out.println(m);
