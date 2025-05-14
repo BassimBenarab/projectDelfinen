@@ -12,7 +12,6 @@ import java.util.Scanner;
 
 public class MainMenu {
     private Scanner scanner = new Scanner(System.in);
-    //private ArrayList<Member> members = new ArrayList<>();
     private MemberRepository memberRepo = new MemberRepository();
     private PaymentUtils payments = new PaymentUtils();
     private PaymentRepository totalBalance = new PaymentRepository(memberRepo);
@@ -44,7 +43,8 @@ public class MainMenu {
                                 switch (subChoice) {
                                     case 1 -> memberRepo.addMember();
                                     case 2 -> memberRepo.printAllMembers();
-                                    case 3 -> back = true;
+                                    //case 3 -> memberRepo.saveMembers();
+                                    case 4 -> back = true;
                                     default -> System.out.println("Ugyldigt valg");
                                 }
                                 
