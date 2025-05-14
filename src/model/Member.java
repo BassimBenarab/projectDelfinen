@@ -4,6 +4,7 @@ import utils.DateUtils;
 import utils.PaymentUtils;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 public class Member {
@@ -12,14 +13,16 @@ public class Member {
     private LocalDate birthDate;
     private boolean activeMember;
     private MembershipType membershipType;
+    private SwimDiscipline swimDiscipline;
 
     // Constructor:
-    public Member(String name, LocalDate birthDate, boolean activeMember) {
+    public Member(String name, LocalDate birthDate, boolean activeMember, SwimDiscipline swimDiscipline ) {
         this.name = name;
         this.birthDate = birthDate;
         this.activeMember = activeMember;
         int age = DateUtils.calculateAge(birthDate);
         this.membershipType = PaymentUtils.determineMembershipType(age);
+        this.swimDiscipline = swimDiscipline;
     }
 
     //Getter og setter:
@@ -56,12 +59,18 @@ public class Member {
         this.membershipType = membershipType;
     }
 
+    public SwimDiscipline getDiscipline() {
+        return this.swimDiscipline;
+    }
+
+    public void setDiscipline (SwimDiscipline discipline){
+        this.swimDiscipline = discipline;
+    }
+
     //To string metoden gør udskrivningen pænere:
     public String toString() {
-        return "Name: " + name + " Birthday " + birthDate + " Membership Type: " + membershipType + " Active membership = " + activeMember;
+        return name + " (" + birthDate + " )" + " Medlemsskab: " + membershipType + ". " + "status: " + (activeMember ? "Aktiv" : "Passiv") + (swimDiscipline != null ? ", disciplin: " + swimDiscipline : "");
 
     }
-
-
-    }
+}
 

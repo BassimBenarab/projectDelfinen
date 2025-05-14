@@ -19,23 +19,4 @@ public class PaymentUtils {
             return MembershipType.PENSIONER;
         }
     }
-
-    /*public static double getMembershipFee(Member member) {
-        int age = DateUtils.calculateAge(member.getBirthDate());
-        MembershipType type = determineMembershipType(age);
-
-        switch (type) {
-            case JUNIOR:
-                return 1000;
-            case SENIOR:
-                return 1600;
-            case PENSIONER:
-                return 1600 * 0.75;
-            default:
-                return 500;
-        }
-
-    }
-
-     */
 }
