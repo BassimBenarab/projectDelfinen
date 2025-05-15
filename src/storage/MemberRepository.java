@@ -1,8 +1,10 @@
 package storage;
 
+import data.Handler.Datahandler;
 import model.Member;
 import model.MembershipType;
 import model.SwimDiscipline;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,17 +12,20 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class MemberRepository {
     private List<Member> members = new ArrayList<>();
     private final String FILE_PATH = "src/data/members.txt";
 
-    public MemberRepository() {
+
+  /*  public MemberRepository(){
         this.members = loadMembers();
-    }
 
+   */
 
+Datahandler data = new Datahandler();
     public void addMember() {
         Scanner input = new Scanner(System.in);
 
@@ -45,7 +50,7 @@ public class MemberRepository {
                     birthDate = LocalDate.of(year, month, day);
 
                     if (birthDate.isAfter(LocalDate.now())) {
-                        System.out.println("Født i fremtiden ikke muligt endnu");
+                        System.out.println("Født i fremtiden er ikke muligt ");
                         birthDate = null;
                     }
                 } catch (Exception e) {
@@ -64,7 +69,7 @@ public class MemberRepository {
                     isActive = true;
 
                     System.out.println("Vælg en svømmedisciplin");
-                    System.out.println("1. Freestyle " + "\n 2. Backstroke" + "\n 3. Breaststroke" + "\n 4. Butterfly");
+                    System.out.println("\n 1. Freestyle " + "\n 2. Backstroke" + "\n 3. Breaststroke" + "\n 4. Butterfly");
 
                     while (swimDiscipline == null && isActive) {
                         try {
@@ -116,7 +121,7 @@ public class MemberRepository {
             }
         }
         try {
-            saveMembers(members);
+            data.saveMembers(members);
         } catch (IOException e) {
             System.out.println("Fejl ved gemning af medlemmer: " + e.getMessage());
         }
@@ -132,15 +137,16 @@ public class MemberRepository {
             System.out.println(m);
         }
     }
+}
 
 
-    //Metode til at gemme medlemmer til fil
+ /*   //Metode til at gemme medlemmer til fil
     public void saveMembers(List<Member> members) throws IOException {
-        try (PrintStream out = new PrintStream(new FileOutputStream(FILE_PATH, false))) {
+        try (PrintWriter out = new PrintWriter(new FileWriter(FILE_PATH))) {
             for (Member m : members) {
-                out.println(m.getName() + ";" + m.getBirthDate() + ";" + m.getMembershipType() + ";" + m.isActiveMember() + ";" + m.getDiscipline());
+                out.println(m.getName() + " - " + m.getBirthDate() + " - " + m.getMembershipType() + " - " + m.isActiveMember() + " - " + m.getDiscipline());
+                System.out.println("Medlemmer er blevet gemt");
             }
-            System.out.println("Medlemmer er blevet gemt");
 
         } catch (IOException e) {
             System.out.println("file is empty" + e.getMessage());
@@ -148,40 +154,38 @@ public class MemberRepository {
     }
 
     public List<Member> loadMembers() {
-        List<Member> loadedMembers = new ArrayList<>();
+        List<Member> members = new ArrayList<>();
         Path path = Paths.get(FILE_PATH);
 
         try {
             List<String> lines = Files.readAllLines(path);
 
             for (String line : lines) {
-                String[] parts = line.split(";");
-                if (parts.length == 5) {
-                    String name = parts[0].trim();
-                    LocalDate birthDate = LocalDate.parse(parts[1].trim());
-                    String membershipType = parts[2].trim();
-                    boolean isActive = Boolean.parseBoolean(parts[3].trim());
-                    String disciplineStr =parts[4].trim();
-
+                String[] parts = line.split(" - ");
+                if (parts.length >= 5) {
+                    String name = parts[0];
+                    LocalDate birthDate = LocalDate.parse(parts[1]);
+                    MembershipType type = MembershipType.valueOf(parts[2]);
+                    boolean isActive = Boolean.parseBoolean(parts[3]);
                     SwimDiscipline discipline = null;
-
-                    if (!disciplineStr.equals("none")) {
-                        discipline = SwimDiscipline.valueOf(disciplineStr);
+                    if (!parts[4].equalsIgnoreCase("null")) {
+                        discipline = SwimDiscipline.valueOf(parts[4]);
                     }
 
-                    loadedMembers.add(new Member(name, birthDate, isActive, discipline));
+                    members.add(new Member(name, birthDate,isActive, discipline));
+
+
                 }
             }
         } catch (IOException e) {
             System.out.println("file error" + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("fejl ved indlænsing" + e.getMessage());
         }
-        this.members = loadedMembers;
-        return loadedMembers;
+        return members;
     }
 }
 
+
+  */
 /*
 
             // try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {

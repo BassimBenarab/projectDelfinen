@@ -5,6 +5,9 @@ import model.Member;
 import storage.MemberRepository;
 import storage.PaymentRepository;
 import utils.PaymentUtils;
+
+import javax.imageio.IIOException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,60 +26,61 @@ public class MainMenu {
             System.out.println("1. Medlemmer");
             System.out.println("2. Betalinger");
 
-                if (scanner.hasNextInt()) {
-                    int choice = scanner.nextInt();
-                    scanner.nextLine();
 
-                    switch (choice) {
-                        case 1 -> {
-                            boolean back = false;
-                            while (!back) {
-                                System.out.println("\n--Medlemmer --");
-                                System.out.println("1. Tilføj medlem");
-                                System.out.println("2. Se alle medlemmer");
-                                System.out.println("3. Tilbage");
+            if (scanner.hasNextInt()) {
+                int choice = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (choice) {
+                    case 1 -> {
+                        boolean back = false;
+                        while (!back) {
+                            System.out.println("\n--Medlemmer --");
+                            System.out.println("1. Tilføj medlem");
+                            System.out.println("2. Se alle medlemmer");
+                            System.out.println("3. Tilbage");
 
 
-                                int subChoice = scanner.nextInt();
-                                scanner.nextLine();
+                            int subChoice = scanner.nextInt();
+                            scanner.nextLine();
 
-                                switch (subChoice) {
-                                    case 1 -> memberRepo.addMember();
-                                    case 2 -> memberRepo.printAllMembers();
-                                    //case 3 -> memberRepo.saveMembers();
-                                    case 4 -> back = true;
-                                    default -> System.out.println("Ugyldigt valg");
-                                }
-                                
+                            switch (subChoice) {
+                                case 1 -> memberRepo.addMember();
+                                case 2 -> memberRepo.printAllMembers();
+                                //case 3 -> memberRepo.saveMembers();
+                                case 3 -> back = true;
+                                default -> System.out.println("Ugyldigt valg");
                             }
+
                         }
-                        case 2 -> {
-                            boolean back2 = false;
-                            while (!back2) {
-                                System.out.println("\n--Betalinger --");
-                                System.out.println("1. Samlet kontingent");
-                                System.out.println("2. Medlemmer i restance");
-                                System.out.println("3. Tilbage");
+                    }
+                    case 2 -> {
+                        boolean back2 = false;
+                        while (!back2) {
+                            System.out.println("\n--Betalinger --");
+                            System.out.println("1. Samlet kontingent");
+                            System.out.println("2. Medlemmer i restance");
+                            System.out.println("3. Tilbage");
 
-                                int paymentChoice = scanner.nextInt();
-                                scanner.nextLine();
+                            int paymentChoice = scanner.nextInt();
+                            scanner.nextLine();
 
-                                switch (paymentChoice) {
-                                    case 1 -> totalBalance.calculatePayments();
-                                    //case 2 ->
-                                    case 3 -> back2 = true;
-                                    default -> System.out.println("ugyldigt valg");
+                            switch (paymentChoice) {
+                                case 1 -> totalBalance.calculatePayments();
+                                //case 2 ->
+                                case 3 -> back2 = true;
+                                default -> System.out.println("ugyldigt valg");
 
-                                }
                             }
-                        }
-
-
-                        default -> System.out.println("Ugyldigt valg");
                         }
                     }
 
 
+                    default -> System.out.println("Ugyldigt valg");
                 }
             }
+
+
         }
+    }
+}
