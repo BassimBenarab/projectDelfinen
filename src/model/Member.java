@@ -27,27 +27,33 @@ public class Member {
 
     //Getter og setter:
     public String getName() {
+
         return this.name;
     }
 
     public void setName(String name) {
+
         this.name = name;
     }
 
 
     public LocalDate getBirthDate() {
+
         return this.birthDate;
     }
 
     public void setBirthDate(LocalDate birthDate) {
+
         this.birthDate = birthDate;
     }
 
     public boolean isActiveMember() {
+
         return this.activeMember;
     }
 
     public void setActiveMember(boolean activeMember) {
+
         this.activeMember = activeMember;
     }
 

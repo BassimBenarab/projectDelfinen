@@ -1,6 +1,8 @@
 package storage;
 
+import data.Handler.Datahandler;
 import model.Member;
+import model.MembershipType;
 import model.SwimDiscipline;
 
 import java.io.*;
@@ -15,8 +17,15 @@ import java.util.Scanner;
 
 public class MemberRepository {
     private List<Member> members = new ArrayList<>();
-    private final String FILE_PATH = "src/data/members";
+    private final String FILE_PATH = "src/data/members.txt";
 
+
+  /*  public MemberRepository(){
+        this.members = loadMembers();
+
+   */
+
+Datahandler data = new Datahandler();
     public void addMember() {
         Scanner input = new Scanner(System.in);
 
@@ -41,7 +50,7 @@ public class MemberRepository {
                     birthDate = LocalDate.of(year, month, day);
 
                     if (birthDate.isAfter(LocalDate.now())) {
-                        System.out.println("Født i fremtiden ikke muligt endnu");
+                        System.out.println("Født i fremtiden er ikke muligt ");
                         birthDate = null;
                     }
                 } catch (Exception e) {
@@ -60,7 +69,7 @@ public class MemberRepository {
                     isActive = true;
 
                     System.out.println("Vælg en svømmedisciplin");
-                    System.out.println("1. Freestyle " + "\n 2. Backstroke" + "\n 3. Breaststroke" + "\n 4. Butterfly");
+                    System.out.println("\n 1. Freestyle " + "\n 2. Backstroke" + "\n 3. Breaststroke" + "\n 4. Butterfly");
 
                     while (swimDiscipline == null && isActive) {
                         try {
@@ -112,7 +121,7 @@ public class MemberRepository {
             }
         }
         try {
-            saveMembers(members);
+            data.saveMembers(members);
         } catch (IOException e) {
             System.out.println("Fejl ved gemning af medlemmer: " + e.getMessage());
         }
@@ -128,11 +137,12 @@ public class MemberRepository {
             System.out.println(m);
         }
     }
+}
 
 
-    //Metode til at gemme medlemmer til fil
+ /*   //Metode til at gemme medlemmer til fil
     public void saveMembers(List<Member> members) throws IOException {
-        try (PrintStream out = new PrintStream(new FileOutputStream(FILE_PATH, true))) {
+        try (PrintWriter out = new PrintWriter(new FileWriter(FILE_PATH))) {
             for (Member m : members) {
                 out.println(m.getName() + " - " + m.getBirthDate() + " - " + m.getMembershipType() + " - " + m.isActiveMember() + " - " + m.getDiscipline());
                 System.out.println("Medlemmer er blevet gemt");
@@ -145,14 +155,25 @@ public class MemberRepository {
 
     public List<Member> loadMembers() {
         List<Member> members = new ArrayList<>();
-        Path path = Paths.get("src/data/members");
+        Path path = Paths.get(FILE_PATH);
 
         try {
             List<String> lines = Files.readAllLines(path);
 
             for (String line : lines) {
-                String[] parts = line.split(";");
+                String[] parts = line.split(" - ");
                 if (parts.length >= 5) {
+                    String name = parts[0];
+                    LocalDate birthDate = LocalDate.parse(parts[1]);
+                    MembershipType type = MembershipType.valueOf(parts[2]);
+                    boolean isActive = Boolean.parseBoolean(parts[3]);
+                    SwimDiscipline discipline = null;
+                    if (!parts[4].equalsIgnoreCase("null")) {
+                        discipline = SwimDiscipline.valueOf(parts[4]);
+                    }
+
+                    members.add(new Member(name, birthDate,isActive, discipline));
+
 
                 }
             }
@@ -163,6 +184,8 @@ public class MemberRepository {
     }
 }
 
+
+  */
 /*
 
             // try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
