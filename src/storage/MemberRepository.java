@@ -1,6 +1,7 @@
 package storage;
 
 import model.Member;
+import model.MembershipType;
 import model.SwimDiscipline;
 
 import java.io.*;
@@ -15,7 +16,12 @@ import java.util.Scanner;
 
 public class MemberRepository {
     private List<Member> members = new ArrayList<>();
-    private final String FILE_PATH = "src/data/members";
+    private final String FILE_PATH = "src/data/members.txt";
+
+    public MemberRepository() {
+        this.members = loadMembers();
+    }
+
 
     public void addMember() {
         Scanner input = new Scanner(System.in);
@@ -132,11 +138,11 @@ public class MemberRepository {
 
     //Metode til at gemme medlemmer til fil
     public void saveMembers(List<Member> members) throws IOException {
-        try (PrintStream out = new PrintStream(new FileOutputStream(FILE_PATH, true))) {
+        try (PrintStream out = new PrintStream(new FileOutputStream(FILE_PATH, false))) {
             for (Member m : members) {
-                out.println(m.getName() + " - " + m.getBirthDate() + " - " + m.getMembershipType() + " - " + m.isActiveMember() + " - " + m.getDiscipline());
-                System.out.println("Medlemmer er blevet gemt");
+                out.println(m.getName() + ";" + m.getBirthDate() + ";" + m.getMembershipType() + ";" + m.isActiveMember() + ";" + m.getDiscipline());
             }
+            System.out.println("Medlemmer er blevet gemt");
 
         } catch (IOException e) {
             System.out.println("file is empty" + e.getMessage());
@@ -144,22 +150,37 @@ public class MemberRepository {
     }
 
     public List<Member> loadMembers() {
-        List<Member> members = new ArrayList<>();
-        Path path = Paths.get("src/data/members");
+        List<Member> loadedMembers = new ArrayList<>();
+        Path path = Paths.get(FILE_PATH);
 
         try {
             List<String> lines = Files.readAllLines(path);
 
             for (String line : lines) {
                 String[] parts = line.split(";");
-                if (parts.length >= 5) {
+                if (parts.length == 5) {
+                    String name = parts[0].trim();
+                    LocalDate birthDate = LocalDate.parse(parts[1].trim());
+                    String membershipType = parts[2].trim();
+                    boolean isActive = Boolean.parseBoolean(parts[3].trim());
+                    String disciplineStr =parts[4].trim();
 
+                    SwimDiscipline discipline = null;
+
+                    if (!disciplineStr.equals("none")) {
+                        discipline = SwimDiscipline.valueOf(disciplineStr);
+                    }
+
+                    loadedMembers.add(new Member(name, birthDate, isActive, discipline));
                 }
             }
         } catch (IOException e) {
             System.out.println("file error" + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("fejl ved indlænsing" + e.getMessage());
         }
-        return members;
+        this.members = loadedMembers;
+        return loadedMembers;
     }
 }
 

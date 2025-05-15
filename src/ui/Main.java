@@ -9,7 +9,6 @@ public class Main {
 
         System.out.println("velkommen til svømmeklub 'Delfin' ");
         MainMenu menu = new MainMenu();
-        memberRepo.loadMembers();
         menu.runProgram();
     }
 }
