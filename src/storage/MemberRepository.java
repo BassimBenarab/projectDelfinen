@@ -17,11 +17,17 @@ import java.util.Scanner;
 
 public class MemberRepository {
     private List<Member> members = new ArrayList<>();
-    private final String FILE_PATH = "src/data/members.txt";
+    private final Datahandler dataHandler = new Datahandler();
     private TeamManager teamManager;
+    private PaymentRepository payment;
 
     public MemberRepository(TeamManager teamManager) {
         this.teamManager = teamManager;
+        this.payment = new PaymentRepository(this);
+        this.members = dataHandler.loadMembers();
+        for (Member m : members) {
+            teamManager.addMembertoTeam(m);
+        }
     }
 
 
@@ -29,8 +35,6 @@ public class MemberRepository {
         this.members = loadMembers();
 
    */
-
-Datahandler data = new Datahandler();
     public void addMember() {
         Scanner input = new Scanner(System.in);
 
@@ -117,7 +121,10 @@ Datahandler data = new Datahandler();
 
             Member newMember = new Member(name, birthDate, isActive, swimDiscipline);
             members.add(newMember);
+            dataHandler.saveMembers(members);
             teamManager.addMembertoTeam(newMember);
+            System.out.println(newMember.getName() + " tilføjet til hold med træner " + findTrainerForMember(newMember));
+            payment.generateAndSavePayments();
             System.out.println(members.get(members.size() - 1));
             System.out.println("--------------------------");
 
@@ -127,11 +134,6 @@ Datahandler data = new Datahandler();
             if (!input2.equals("ja")) {
                 addMore = false;
             }
-        }
-        try {
-            data.saveMembers(members);
-        } catch (IOException e) {
-            System.out.println("Fejl ved gemning af medlemmer: " + e.getMessage());
         }
     }
 
@@ -145,65 +147,27 @@ Datahandler data = new Datahandler();
             System.out.println(m);
         }
     }
-}
-
-
- /*   //Metode til at gemme medlemmer til fil
-    public void saveMembers(List<Member> members) throws IOException {
-        try (PrintWriter out = new PrintWriter(new FileWriter(FILE_PATH))) {
-            for (Member m : members) {
-                out.println(m.getName() + " - " + m.getBirthDate() + " - " + m.getMembershipType() + " - " + m.isActiveMember() + " - " + m.getDiscipline());
-                System.out.println("Medlemmer er blevet gemt");
+    public void printInactiveMembers() {
+        System.out.println("---- inaktive medlemmer -----");
+        boolean found = false;
+        for (Member m : members) {
+            if (!m.isActiveMember()) {
+                System.out.println(m);
+                found = true;
             }
-
-        } catch (IOException e) {
-            System.out.println("file is empty" + e.getMessage());
         }
+        if (!found) {
+            System.out.println("ingen aktive medlemmer fundet");
+        }
+        System.out.println("------------------------");
     }
-
-    public List<Member> loadMembers() {
-        List<Member> members = new ArrayList<>();
-        Path path = Paths.get(FILE_PATH);
-
-        try {
-            List<String> lines = Files.readAllLines(path);
-
-            for (String line : lines) {
-                String[] parts = line.split(" - ");
-                if (parts.length >= 5) {
-                    String name = parts[0];
-                    LocalDate birthDate = LocalDate.parse(parts[1]);
-                    MembershipType type = MembershipType.valueOf(parts[2]);
-                    boolean isActive = Boolean.parseBoolean(parts[3]);
-                    SwimDiscipline discipline = null;
-                    if (!parts[4].equalsIgnoreCase("null")) {
-                        discipline = SwimDiscipline.valueOf(parts[4]);
-                    }
-
-                    members.add(new Member(name, birthDate,isActive, discipline));
-
-
-                }
+    private String findTrainerForMember(Member member) {
+        for (Team team : teamManager.getAllTeams()) {
+            if (team.fitsMember(member)) {
+                return team.getTrainer();
             }
-        } catch (IOException e) {
-            System.out.println("file error" + e.getMessage());
         }
-        return members;
+        return "ukendt træner";
     }
 }
 
-
-  */
-/*
-
-            // try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
-            String line;
-        } while ()
-    }
-
-
-*/
-
-
-            //  if (new java.io.File(FILE_PATH).length() == 0) {
-    //out.println("Name,BirthDate,Membership,Active,Disciplines");

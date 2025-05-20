@@ -41,7 +41,8 @@ public class MainMenu {
                             System.out.println("\n--Medlemmer --");
                             System.out.println("1. Tilføj medlem");
                             System.out.println("2. Se alle medlemmer");
-                            System.out.println("3. Tilbage");
+                            System.out.println("3. se inaktive medlemmer (passiv)");
+                            System.out.println("4. Tilbage");
 
 
                             int subChoice = scanner.nextInt();
@@ -69,7 +70,7 @@ public class MainMenu {
                             scanner.nextLine();
 
                             switch (paymentChoice) {
-                                case 1 -> totalBalance.calculatePayments();
+                                case 1 -> totalBalance.printAllPayments();
                                 //case 2 ->
                                 case 3 -> back2 = true;
                                 default -> System.out.println("ugyldigt valg");
@@ -82,6 +83,7 @@ public class MainMenu {
                         while (!back2) {
                             System.out.println("\n-- Hold");
                             System.out.println("1. se alle hold");
+                            System.out.println("2. Tilbage");
 
                             int teamChoice = scanner.nextInt();
                             scanner.nextLine();
