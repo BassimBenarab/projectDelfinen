@@ -7,12 +7,6 @@ import storage.MemberRepository;
 import storage.PaymentRepository;
 import storage.TeamManager;
 import utils.PaymentUtils;
-
-import javax.imageio.IIOException;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class MainMenu {
