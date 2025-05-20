@@ -10,13 +10,13 @@ import java.util.List;
 public class Team {
     private String trainer;
     private SwimDiscipline discipline;
-    private MembershipType membershipType;
+    private List<MembershipType> membershipTypes;
     private List<Member> members;
 
-    public Team(String trainer, SwimDiscipline discipline, MembershipType membershipType) {
+    public Team(String trainer, SwimDiscipline discipline, List<MembershipType> membershipTypes) {
         this.trainer = trainer;
         this.discipline = discipline;
-        this.membershipType = membershipType;
+        this.membershipTypes = membershipTypes != null ? membershipTypes : new ArrayList<>();
         this.members = new ArrayList<>();
     }
 
@@ -40,12 +40,12 @@ public class Team {
         this.discipline = discipline;
     }
 
-    public MembershipType getMembershipType() {
-        return membershipType;
+    public List<MembershipType> getMembershipTypes() {
+        return membershipTypes;
     }
 
-    public void setMembershipType(MembershipType membershipType) {
-        this.membershipType = membershipType;
+    public void setMembershipType(List<MembershipType> membershipType) {
+        this.membershipTypes = membershipTypes;
     }
 
     public List<Member> getMembers() {
@@ -53,6 +53,6 @@ public class Team {
     }
 
     public boolean fitsMember(Member member) {
-        return member.getDiscipline() == this.discipline && member.getMembershipType() == this.membershipType && member.isActiveMember();
+        return member.getDiscipline() == this.discipline && getMembershipTypes().contains(member.getMembershipType()) && member.isActiveMember();
     }
 }
