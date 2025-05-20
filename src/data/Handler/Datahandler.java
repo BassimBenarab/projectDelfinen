@@ -1,19 +1,5 @@
 package data.Handler;
 
-import data.CscConvertiable;
-import model.Member;
-import model.MembershipType;
-import model.SwimDiscipline;
-
-import java.io.*;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
 public class Datahandler {
     private List<Member> members = new ArrayList<>();
     private final String FILE_PATH = "src/data/members.txt";

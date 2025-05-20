@@ -4,6 +4,7 @@ import logic.MembershipCalculator;
 import model.Member;
 import storage.MemberRepository;
 import storage.PaymentRepository;
+import storage.TeamManager;
 import utils.PaymentUtils;
 
 import javax.imageio.IIOException;
@@ -15,7 +16,8 @@ import java.util.Scanner;
 
 public class MainMenu {
     private Scanner scanner = new Scanner(System.in);
-    private MemberRepository memberRepo = new MemberRepository();
+    private TeamManager Manager = new TeamManager();
+    private MemberRepository memberRepo = new MemberRepository(Manager);
     private PaymentUtils payments = new PaymentUtils();
     private PaymentRepository totalBalance = new PaymentRepository(memberRepo);
 
@@ -25,6 +27,7 @@ public class MainMenu {
             System.out.println("\n--Hovedmenu--");
             System.out.println("1. Medlemmer");
             System.out.println("2. Betalinger");
+            System.out.println("3. hold");
 
 
             if (scanner.hasNextInt()) {
@@ -71,6 +74,22 @@ public class MainMenu {
                                 case 3 -> back2 = true;
                                 default -> System.out.println("ugyldigt valg");
 
+                            }
+                        }
+                    }
+                    case 3 -> {
+                        boolean back2 = false;
+                        while (!back2) {
+                            System.out.println("\n-- Hold");
+                            System.out.println("1. se alle hold");
+
+                            int teamChoice = scanner.nextInt();
+                            scanner.nextLine();
+
+                            switch (teamChoice) {
+                                case 1 -> Manager.printAllTeams();
+                                case 2 -> back2 = true;
+                                default -> System.out.println("ugyldigt valg");
                             }
                         }
                     }
