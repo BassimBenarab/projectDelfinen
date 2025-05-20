@@ -18,6 +18,11 @@ import java.util.Scanner;
 public class MemberRepository {
     private List<Member> members = new ArrayList<>();
     private final String FILE_PATH = "src/data/members.txt";
+    private TeamManager teamManager;
+
+    public MemberRepository(TeamManager teamManager) {
+        this.teamManager = teamManager;
+    }
 
 
   /*  public MemberRepository(){
@@ -109,7 +114,10 @@ Datahandler data = new Datahandler();
             System.out.println("Medlem oprettet");
 
 
-            members.add(new Member(name, birthDate, isActive, swimDiscipline));
+
+            Member newMember = new Member(name, birthDate, isActive, swimDiscipline);
+            members.add(newMember);
+            teamManager.addMembertoTeam(newMember);
             System.out.println(members.get(members.size() - 1));
             System.out.println("--------------------------");
 
