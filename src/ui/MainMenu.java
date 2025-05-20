@@ -1,5 +1,6 @@
 package ui;
 
+import data.Handler.Datahandler;
 import logic.MembershipCalculator;
 import model.Member;
 import storage.MemberRepository;
@@ -20,6 +21,7 @@ public class MainMenu {
     private MemberRepository memberRepo = new MemberRepository(Manager);
     private PaymentUtils payments = new PaymentUtils();
     private PaymentRepository totalBalance = new PaymentRepository(memberRepo);
+    private Datahandler data = new Datahandler();
 
         public void runProgram() {
         boolean running = true;
@@ -51,8 +53,8 @@ public class MainMenu {
                             switch (subChoice) {
                                 case 1 -> memberRepo.addMember();
                                 case 2 -> memberRepo.printAllMembers();
-                                //case 3 -> memberRepo.saveMembers();
-                                case 3 -> back = true;
+                                case 3 -> memberRepo.printInactiveMembers();
+                                case 4 -> back = true;
                                 default -> System.out.println("Ugyldigt valg");
                             }
 
