@@ -4,11 +4,6 @@ import data.Handler.Datahandler;
 import model.Member;
 import model.MembershipType;
 import model.SwimDiscipline;
-
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
