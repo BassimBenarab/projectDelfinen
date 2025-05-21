@@ -1,8 +1,8 @@
 package model;
 
-/*import java.time.LocalDate;
-import java.util.ArrayList;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Swimmer extends Member{
@@ -14,7 +14,7 @@ public class Swimmer extends Member{
 
 
     //Constructor:
-    public Swimmer(String name, LocalDate birthDate, boolean activeMember, SwimDiscipline discipline, List<TrainingResult> trainingResults, List<CompetitionResult> competitionResults) {
+    public Swimmer(String name, LocalDate birthDate, boolean activeMember, SwimDiscipline discipline) {
         super(name,birthDate,activeMember, discipline);  //Man extender en super, for at undgå lave getter og setter igen, da de allerede er lavede i Member klassen.
         this.discipline = discipline;
         this.trainingResults = new ArrayList<>(); // Årsagen til man skriver new, er fordi vi laver en tom liste, som man tilføjer til løbende. New skrives for at undgå null fejl.
@@ -22,12 +22,12 @@ public class Swimmer extends Member{
     }
 
     //Metoder til at tilføje til swømmerstider, til listen.
-    public void addTrainingResults(TrainingResult result) {
+    public void addTrainingResult(TrainingResult result) {
         this.trainingResults.add(result);
 
     }
 
-    public void addCompetitionResults(CompetitionResult result) {
+    public void addCompetitionResult(CompetitionResult result) {
         this.competitionResults.add(result);
     }
 
@@ -51,4 +51,4 @@ public class Swimmer extends Member{
     }
 
 }
- */
+
