@@ -1,21 +1,17 @@
 package ui;
 
-import data.Handler.Datahandler;
 import storage.MemberRepository;
-import storage.PaymentRepository;
 import storage.TeamManager;
-
-import java.util.List;
+import utils.InputHelper;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         TeamManager manager = new TeamManager();
-    MemberRepository memberRepo = new MemberRepository(manager);
-        Datahandler datahandler = new Datahandler();
-    PaymentRepository payRepo = new PaymentRepository(memberRepo);
+        MemberRepository memberRepo = new MemberRepository(manager, new InputHelper(new Scanner(System.in)));
 
 
-        System.out.println("velkommen til svømmeklub 'Delfin' ");
+        System.out.println("Velkommen til svømmeklub 'Delfin' ");
         MainMenu menu = new MainMenu();
         menu.runProgram();
     }

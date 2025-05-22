@@ -1,7 +1,6 @@
 package logic;
 
 import model.Member;
-import model.MembershipType;
 import utils.DateUtils;
 
 public class MembershipCalculator {
@@ -18,9 +17,5 @@ public class MembershipCalculator {
             return 1600.00 * 0.75;
         }
     }
-
-    //MANGLER ÅRLIGBETALING:
-
-
 }
 

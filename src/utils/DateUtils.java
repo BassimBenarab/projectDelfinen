@@ -1,9 +1,10 @@
 package utils;
-import model.Member;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.time.Period;
+
 // Metode, som viser aktuelle dato:
 public class DateUtils {
     public static void getCurrentDate() {

@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-import static java.util.Arrays.stream;
 
 public class Datahandler {
     private List <Member> members;
@@ -87,7 +86,7 @@ public class Datahandler {
             LocalDate date = LocalDate.parse(parts[2]);
             return new Payment(memberName, amount, date);
         } catch (Exception e){
-            System.out.println("fejl ved parsing af betalingslinje" + line);
+            System.out.println("Fejl ved parsing af betalingslinje" + line);
             return null;
         }
         }).stream().filter(p -> p != null).toList();

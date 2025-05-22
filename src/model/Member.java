@@ -2,10 +2,7 @@ package model;
 
 import utils.DateUtils;
 import utils.PaymentUtils;
-
 import java.time.LocalDate;
-import java.util.List;
-
 
 public class Member {
     //Attributter:
@@ -75,7 +72,7 @@ public class Member {
 
     //To string metoden gør udskrivningen pænere:
     public String toString() {
-        return name + " (" + birthDate + " )" + " Medlemsskab: " + membershipType + ". " + "status: " + (activeMember ? "Aktiv" : "Passiv") + (swimDiscipline != null ? ", disciplin: " + swimDiscipline : "");
+        return name + " (" + birthDate + " )" + " Medlemsskab: " + membershipType + ". " + "Status: " + (activeMember ? "Aktiv" : "Passiv") + (swimDiscipline != null ? ", disciplin: " + swimDiscipline : "");
 
     }
 }

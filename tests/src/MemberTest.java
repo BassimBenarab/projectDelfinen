@@ -2,7 +2,6 @@
 import model.MembershipType;
 import org.junit.jupiter.api.Test;
 import logic.MembershipCalculator;
-
 import java.time.LocalDate;
 import model.SwimDiscipline;
 import model.Member;
@@ -11,13 +10,12 @@ import static org.junit.jupiter.api.Assertions.*;
 public class MemberTest {
     @Test
     void testMemberisactive() {
-        Member newmember = new Member("filip jacobsen", LocalDate.of(2004,10,1), true, SwimDiscipline.FREESTYLE);
-
+        Member newmember = new Member("Filip Jacobsen", LocalDate.of(2004,10,1), true, SwimDiscipline.FREESTYLE);
         assertTrue(newmember.isActiveMember()); // her tester vi om medlemmet returnere aktivt
     }
     @Test
     void test_member_is_not_active() {
-        Member newmember = new Member("filip jacobsen", LocalDate.of(2004,10,1), false, SwimDiscipline.FREESTYLE);
+        Member newmember = new Member("Filip Jacobsen", LocalDate.of(2004,10,1), false, SwimDiscipline.FREESTYLE);
         assertFalse(newmember.isActiveMember()); // her tester vi at hvis member er passiv, skal den retunere false på at være aktiv ( booleans)
     }
     @Test

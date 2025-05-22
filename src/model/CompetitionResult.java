@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class CompetitionResult extends TrainingResult{
@@ -7,8 +8,8 @@ public class CompetitionResult extends TrainingResult{
     private int placement;
 
     //Constructor:
-    public CompetitionResult(double time, Date date, SwimDiscipline discipline, String competitionName, int placement){
-        super(time,date,discipline);
+    public CompetitionResult(Member member, SwimDiscipline discipline, double time, LocalDate date, String competitionName, int placement){
+        super(member, discipline,time,date);
         this.competitionName = competitionName;
         this.placement = placement;
     }

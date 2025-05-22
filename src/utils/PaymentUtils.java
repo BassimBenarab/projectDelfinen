@@ -3,9 +3,6 @@ package utils;
 import model.Member;
 import model.MembershipType;
 
-import java.time.LocalDate;
-import java.time.Period;
-
 import static model.MembershipType.JUNIOR;
 
 public class PaymentUtils {

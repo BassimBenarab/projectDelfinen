@@ -3,7 +3,6 @@ package storage;
 import model.Member;
 import model.MembershipType;
 import model.SwimDiscipline;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,10 +16,10 @@ public class TeamManager {
         allTeams.add(new Team("Laura Bøgeskov", SwimDiscipline.FREESTYLE, List.of( MembershipType.PENSIONER)));
         allTeams.add(new Team("Henrik Eriksen", SwimDiscipline.BREASTSTROKE, List.of( MembershipType.PENSIONER)));
         allTeams.add(new Team("Marie Lauritsen", SwimDiscipline.BUTTERFLY, List.of( MembershipType.PENSIONER)));
-        allTeams.add(new Team("pie Lundgren", SwimDiscipline.BACKSTROKE, List.of( MembershipType.JUNIOR, MembershipType.SENIOR)));
-        allTeams.add(new Team("julia bayers", SwimDiscipline.FREESTYLE, List.of(MembershipType.JUNIOR, MembershipType.SENIOR)));
-        allTeams.add(new Team("Palle kvist", SwimDiscipline.BREASTSTROKE, List.of(MembershipType.JUNIOR,MembershipType.SENIOR)));
-        allTeams.add(new Team("Filip jacobsen", SwimDiscipline.BUTTERFLY, List.of(MembershipType.JUNIOR, MembershipType.SENIOR)));
+        allTeams.add(new Team("Pia Lundgren", SwimDiscipline.BACKSTROKE, List.of( MembershipType.JUNIOR, MembershipType.SENIOR)));
+        allTeams.add(new Team("julia Bayers", SwimDiscipline.FREESTYLE, List.of(MembershipType.JUNIOR, MembershipType.SENIOR)));
+        allTeams.add(new Team("Palle Kvist", SwimDiscipline.BREASTSTROKE, List.of(MembershipType.JUNIOR,MembershipType.SENIOR)));
+        allTeams.add(new Team("Filip Jacobsen", SwimDiscipline.BUTTERFLY, List.of(MembershipType.JUNIOR, MembershipType.SENIOR)));
     }
 
     public void addMembertoTeam(Member member){
@@ -39,14 +38,14 @@ public class TeamManager {
         for (Team team : allTeams) {
             System.out.println("----------------");
 
-            System.out.println("træner:    " + team.getTrainer());
+            System.out.println("T   ræner:    " + team.getTrainer());
 
             System.out.println("Disciplin:    " + team.getDiscipline());
 
-            System.out.print("medlemstyper:    ");
+            System.out.print("Medlemstyper:    ");
             List<MembershipType> types = team.getMembershipTypes();
             if(types.isEmpty()) {
-                System.out.println("ingen");
+                System.out.println("Ingen");
             } else {
                 String memberTypes = String.join(", ", types.stream().map(MembershipType::name).toArray(String[]::new));
                 System.out.println(memberTypes);
@@ -56,9 +55,9 @@ public class TeamManager {
 
             List<Member> teamMembers = team.getMembers();
             if (teamMembers.isEmpty()) {
-                System.out.println("ingen medlemmer på dette hold");
+                System.out.println("Ingen medlemmer på dette hold");
             } else {
-                System.out.println("medlemmer:");
+                System.out.println("Medlemmer:");
                 for (Member member : teamMembers) {
                     System.out.println("   - " + member.getName());
                 }
